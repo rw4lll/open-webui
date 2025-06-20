@@ -896,6 +896,29 @@ except Exception:
 OPENAI_API_BASE_URL = "https://api.openai.com/v1"
 
 ####################################
+# DOCKER MODEL RUNNER
+####################################
+
+ENABLE_DMR_API = PersistentConfig(
+    "ENABLE_DMR_API",
+    "dmr.enable",
+    os.environ.get("ENABLE_DMR_API", "True").lower() == "true",
+)
+DMR_BASE_URL = os.environ.get("DMR_BASE_URL", "http://model-runner.docker.internal:12434")
+# Remove trailing slash
+DMR_BASE_URL = DMR_BASE_URL[:-1] if DMR_BASE_URL.endswith("/") else DMR_BASE_URL
+
+DMR_BASE_URL = PersistentConfig(
+    "DMR_BASE_URL", "dmr.base_url", DMR_BASE_URL
+)
+
+DMR_API_CONFIGS = PersistentConfig(
+    "DMR_API_CONFIGS",
+    "dmr.api_configs",
+    {},
+)
+
+####################################
 # TOOL_SERVERS
 ####################################
 
